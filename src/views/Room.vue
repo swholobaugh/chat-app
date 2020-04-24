@@ -51,7 +51,6 @@ export default {
   watch: {
     '$route.params.id': async function() {
       await this.$bind('room', db.collection('rooms').doc(this.$route.params.id))
-
       await this.$bind(
         'messages',
         db
@@ -76,6 +75,21 @@ export default {
         this.newMessage = ''
       }
     },
+/* 
+async add() {
+  const roomRed = await db
+    .collection('rooms')
+    .doc(this.#store.state.route.params.id)
+    .get()
+  this.room = { id: roomRef.id, ...roomRef.data() }
+  const messagesRef = await db
+    .collection('messages')
+    .where('roomId', '==', this.room.id)
+    .get()
+  messagesRef.forEach(m => console.log(m.data()))
+},
+*/
+
     async bind() {
       await this.$bind('room', db.collection('rooms').doc(this.$route.params.id))
       await this.$bind('rooms', db.collection('rooms').orderBy('createdAt'))
